@@ -1,0 +1,28 @@
+doctype html
+html
+  head
+    title Finlogic LLC Portal
+    = csrf_meta_tags
+
+    = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload'
+    = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
+
+  body
+    nav class="navbar navbar-toggleable-md navbar-light bg-faded"
+      button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation"
+        span class='navbar-toggle-icon'
+      a class='navbar-brand' href='#'
+        img src='/images/logo.png' height="50px"
+      div class="collapse navbar-collapse" id="navbarText"
+        ul class="navbar-nav mr-auto"
+          li class="nav-item active"
+            a class="nav-link" href="#" Home
+
+
+    p class="notice"
+      = notice
+    p class="alert"
+      = alert
+
+    == yield
+  
