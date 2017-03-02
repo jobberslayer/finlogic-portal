@@ -1,0 +1,18 @@
+nav class="navbar navbar-toggleable-md navbar-light bg-faded"
+  button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation"
+    span class='navbar-toggle-icon' #{icon('navicon')}
+  a class='navbar-brand' href='#'
+    img src='/images/logo.png' height="50px"
+  div class="collapse navbar-collapse" id="navbarText"
+    ul class="navbar-nav mr-auto"
+      li class="nav-item active"
+        a class="nav-link" href="#" Home      
+    ul class="navbar-nav navbar-right"
+      li class="nav-item dropdown"
+        - if user_signed_in?
+          a class='nav-link dropdown-toggle' data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+            = icon("user-o", "#{current_user.information.name}")
+          div class='dropdown-menu' aria-labelledby='navbarDropdownMenuLink'
+            = link_to(icon('lock', 'Logout', class: 'nav-link'), destroy_user_session_path, :method => :delete, class: 'nav-link') 
+        - else
+          = link_to('Login', new_user_session_path, class: 'nav-link')

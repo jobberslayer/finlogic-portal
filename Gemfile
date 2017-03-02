@@ -37,9 +37,11 @@ gem 'jbuilder', '~> 2.5'
 
 #  Style
 gem 'bootstrap'
+gem 'font-awesome-sass'
 
 # Users
 gem 'devise'
+gem 'cancancan'
 
 # templating
 gem 'slim'
