@@ -1,0 +1,26 @@
+div
+  h2 Change your password
+
+= form_for(resource, as: resource_name, url: user_registration_path, html: { method: :put }) do |f|
+  = devise_error_messages!
+
+  - if devise_mapping.confirmable? && resource.pending_reconfirmation?
+    div
+      Currently waiting confirmation for: #{resource.unconfirmed_email}
+
+  div class="form-group"
+    = f.label :password, class: 'col-form-label'
+    = f.password_field :password, autocomplete: "off", class: 'form-control col-sm-5'
+
+  div class="form-group"
+    = f.label :password_confirmation, class: 'col-form-label'
+    = f.password_field :password_confirmation, autocomplete: "off", class: 'form-control col-sm-5'
+
+  div class="form-group"
+    = f.label :current_password, class: 'col-form-label'
+    = f.password_field :current_password, autocomplete: "off", class: 'form-control col-sm-5'
+
+  div class="actions btn-group"
+    = f.submit "Update", class: 'btn btn-primary'
+    = link_to "Cancel", :back, class: 'btn btn-primary'
+

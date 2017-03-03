@@ -12,7 +12,10 @@ nav class="navbar navbar-toggleable-md navbar-light bg-faded"
         - if user_signed_in?
           a class='nav-link dropdown-toggle' data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
             = icon("user-o", "#{current_user.information.name}")
-          div class='dropdown-menu' aria-labelledby='navbarDropdownMenuLink'
-            = link_to(icon('lock', 'Logout', class: 'nav-link'), destroy_user_session_path, :method => :delete, class: 'nav-link') 
+          div class='dropdown-menu dropdown-menu-right col-sm-8' aria-labelledby='navbarDropdownMenuLink'
+            - if current_user.admin?
+              = link_to(icon('tags', 'Organizations'), organizations_path, class: 'dropdown-item nav-link')
+            = link_to(icon('user-secret', 'Change password'), edit_user_registration_path, class: 'dropdown-item nav-link') 
+            = link_to(icon('sign-out', 'Logout'), destroy_user_session_path, class: 'dropdown-item nav-link', :method => :delete) 
         - else
           = link_to('Login', new_user_session_path, class: 'nav-link')

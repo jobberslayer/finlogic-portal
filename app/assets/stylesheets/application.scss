@@ -33,7 +33,11 @@
 
 .field_with_errors
 {
-    input {
+  input {
     border: 2px solid red;
-    }
+  }
+}
+
+.notice {
+  @extend .alert-warning
 }
