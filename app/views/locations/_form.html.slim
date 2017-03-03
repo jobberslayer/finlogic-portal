@@ -1,0 +1,19 @@
+= form_for(location) do |f|
+  - if location.errors.any?
+    #error_explanation
+      h2
+        = pluralize(location.errors.count, "error")
+        | prohibited this location from being saved:
+      ul
+        - location.errors.full_messages.each do |message|
+          li= message
+
+  div class='form-group row'
+    
+    = f.label :name, for: 'name1', class: 'col-form-label col-sm-2'
+    div 
+      = f.text_field :name, autofocus: true, class: 'form-control', id: 'name1'
+
+  .actions.btn-group
+    = f.submit 'Update', class: 'btn btn-primary'
+    = link_to 'Cancel', :back, class: 'btn btn-primary'

@@ -1,23 +1,19 @@
-div class='container'
-  h2 Change your password
-br
+div
+  h2 Change your password to continue
 
-div class='container'
+div
+  = form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put}) do |f|
     = devise_error_messages!
 
-div class='container col-sm-6'
-  = form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put, class: 'col-sm-8'}) do |f|
-    div class="form-group row"
-      = f.label :password, "New Password ", for: 'password1', class: 'col-form-label col-sm-3'
-      div class="col-sm-9"
-        = f.password_field :password, autofocus: true, autocomplete: "off", class: 'col-sm-5 col-form-control', id: 'password1'
-        - if @minimum_password_length
-          em &nbsp;#{"(#{@minimum_password_length})"} characters minimum
+    div class="form-group"
+      = f.label :password, "New Password ", class: 'col-form-label'
+      = f.password_field :password, autofocus: true, autocomplete: "off", class: 'col-sm-5 form-control'
+      - if @minimum_password_length
+        em &nbsp;#{"(#{@minimum_password_length})"} characters minimum
 
-    div class="form-group row"
-      = f.label :password_confirmation, "Confirm", for: 'password2', class: 'col-sm-3 col-form-label'
-      div class="col-sm-9"    
-        = f.password_field :password_confirmation, autocomplete: "off", class: 'col-sm-5 col-form-control', id: 'password'
+    div class="form-group"
+      = f.label :password_confirmation, "Confirm", class: 'col-form-label'
+      = f.password_field :password_confirmation, autocomplete: "off", class: 'col-sm-5 form-control'
 
     div class="actions"
       = f.submit "Change my password", class: 'btn btn-primary'

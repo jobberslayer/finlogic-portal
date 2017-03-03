@@ -1,0 +1,23 @@
+p id="notice" #{notice}
+
+div
+  = link_to 'New Organization', new_organization_path, class: 'btn btn-primary'
+
+hr
+
+div
+  h1 Organizations
+
+  table class='table table-striped'
+    thead
+      tr
+        th colspan="2"
+
+    tbody
+      - @organizations.sort.each do |organization|
+        tr
+          td #{organization.name}
+          td = link_to 'Show', organization
+          td = link_to 'Edit', edit_organization_path(organization)
+
+

@@ -1,0 +1,32 @@
+<p id="notice"><%= notice %></p>
+
+<%= link_to 'New Location', new_location_path, class: 'btn btn-primary' %>
+
+<br/>
+<br/>
+
+<h1>Locations</h1>
+
+<table class='table table-striped'>
+  <thead>
+    <tr>
+      <th>Organization</th>
+      <th>Location</th>
+      <th colspan="2"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @locations.sort.each do |location| %>
+      <tr>
+        <td><%= location.organization.name %></td>
+        <td><%= location.name %></td>
+        <td><%= link_to 'Show', location %></td>
+        <td><%= link_to 'Edit', edit_location_path(location) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
