@@ -23,6 +23,6 @@ div
           tr
             td = loc.name
             td = link_to :info, location_path(loc)
-            td = link_to :data, location_path(loc)
+            td = link_to :data, aoii_income_statement_path(loc.name.downcase)
 
 

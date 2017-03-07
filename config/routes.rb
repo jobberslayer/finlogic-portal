@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  #get 'aoii/income_statement'
+  get 'aoii/income_statement/:id' => 'aoii#income_statement', as: 'aoii_income_statement'
+
   resources :locations
   resources :organizations
   devise_for :users
