@@ -16,11 +16,14 @@
 @import "font-awesome-sprockets";
 @import "font-awesome";
 
-.alert-error{
-    color: #f00;
-    @extend .alert;
-    @extend .alert-danger;
+.notice {
+    @extend .alert-success;    
 }
+
+.alert {
+    @extend .alert-danger
+}
+
 
 #error_explanation
 {   ul
