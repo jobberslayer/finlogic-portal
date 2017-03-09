@@ -1,17 +1,17 @@
 require 'csv'
 
-org = Organization.find_by(name: 'AOII')
+org = Organization.by_name('AOII')
 
 unless org
   puts "Can not find AOII organtization"
   exit
 end
 
-data_file = "#{Rails.root}/data/aoii_sample.csv"
+data_file = "#{Rails.root}/data/aoii_houses.csv"
 
 puts 
 CSV.foreach(data_file) do |row|
-  row[1..row.size-2].each do |house|
+  row[0..row.size].each do |house|
     l = Location.new({
       name: house
     })
@@ -20,6 +20,7 @@ CSV.foreach(data_file) do |row|
       puts l.errors
       exit
     end
+    p "Saving #{house}"
     l.save
     org.locations.push l
   end

@@ -1,7 +1,8 @@
 # README
 
 Time:
-1st entry: 20
+1st entry : 20
+2017-03-09: 7
 
 This README would normally document whatever steps are necessary to get the
 application up and running.

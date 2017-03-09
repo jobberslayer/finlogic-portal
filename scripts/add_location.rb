@@ -14,7 +14,7 @@ OptionParser.new do |opt|
   opt.on('--myhelp') { puts opt; exit }    
 end.parse! 
 
-org = Organization.find_by(name: o[:org_name])
+org = Organization.by_name(o[:org_name])
 unless org
   puts "Could not find #{o[:org_name]}"
   exit

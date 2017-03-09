@@ -44,3 +44,7 @@
 .notice {
   @extend .alert-warning
 }
+
+.hidden {
+  display: none;
+}

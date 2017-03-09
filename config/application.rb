@@ -15,5 +15,6 @@ module Portal
 
     config.enable_dependency_loading = true
     config.eager_load_paths << Rails.root.join('lib')
+
   end
 end

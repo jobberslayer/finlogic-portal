@@ -1,5 +1,3 @@
-p id="notice" #{notice}
-
 div
   h2 #{@organization.name}
 
@@ -23,6 +21,6 @@ div
           tr
             td = loc.name
             td = link_to :info, location_path(loc)
-            td = link_to :data, aoii_income_statement_path(loc.name.downcase)
+            td = link_to :data, all_statement_path(@organization.name.downcase, loc.name.downcase)
 
 

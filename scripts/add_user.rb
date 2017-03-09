@@ -12,7 +12,7 @@ end.parse!
 
 password = '11223344556677'
 
-l = Location.find_by(name: o[:loc_name])
+l = Location.by_name(o[:loc_name])
 
 unless l
   puts "Could not find location #{o[:loc_name]}"

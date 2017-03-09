@@ -5,19 +5,36 @@ require Rails.root.join('lib/string').to_s
 o = {}    
 OptionParser.new do |opt|    
   opt.on('--file FILE') { |x| o[:file] = x }    
+  opt.on('--org ORGNAME') { |x| o[:org_name] = x }    
+  opt.on('--income') { o[:income] = true }    
+  opt.on('--balance') { o[:balance] = true }    
   opt.on('--myhelp') { puts opt; exit }    
 end.parse! 
 
+statement_type = nil
+if !o[:income] && !o[:balance]
+  p "Must either be an income or balance statement."
+  exit
+elsif o[:income] && o[:balance]
+  p "Can only choose one type of statement."
+  exit
+elsif o[:income]
+  statement_type = Statement::TYPE_INCOME 
+elsif o[:balance]
+  statement_type = Statement::TYPE_BALANCE 
+end
+
 csv = CSV.read(o[:file])
 
-org = Organization.find_by(name: 'AOII')
+org = Organization.by_name(o[:org_name])
 if org.nil?
-  p "Can not find organization AOII"
+  p "Can not find organization #{o[:org_name]}"
   exit
 end
 
+start_data_col = csv[3].count(nil)
 
-houses = csv[3][5..csv[3].size-2]
+houses = csv[3].reject {|h| h.blank?}
 statement_objs = {}
 
 i = 1
@@ -43,18 +60,19 @@ csv[4..csv.size].each do |row|
     next
   end
 
-  house_num = 5
+  house_num = start_data_col 
   houses.each do |house|
     unless statement_objs.key?(house)
-      location = Location.find_by(name: house, organization_id: org.id)
-      income_statement = IncomeStatement.new
-      income_statement.title1 = csv[0][0]
-      income_statement.title2 = csv[1][0]
-      income_statement.time_period = csv[2][0]
-      location.income_statements.push income_statement
-      income_statement.save
+      location = Location.by_name(org.name, house)
+      statement = Statement.new
+      statement.statement_type = statement_type
+      statement.title1 = csv[0][0]
+      statement.title2 = csv[1][0]
+      statement.time_period = csv[2][0]
+      location.statements.push statement
+      statement.save
       location.save
-      statement_objs[house] = income_statement
+      statement_objs[house] = statement
     end
 
     statement_objs[house]["key#{i}"] = name
