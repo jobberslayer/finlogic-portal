@@ -1,0 +1,11 @@
+center
+  h1 AOII - #{ @location.name unless @location.nil? } 
+  h2 Income Statement
+  p #{@time_period}
+
+- unless @data.nil?
+  div class='container col-sm-12'
+    div class='container'
+      table class='table table-striped' width='50%'
+        - @data.each do |line| 
+          = statement_line(line)

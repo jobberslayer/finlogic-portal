@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
-  #get 'aoii/income_statement'
-  get 'aoii/income_statement/:id' => 'aoii#income_statement', as: 'aoii_income_statement'
+  get '/statement/income/:organization/:location' => 'statement#income', as: 'income_statement'
+  get '/statement/balance/:organization/:location' => 'statement#balance', as: 'balance_statement'
+  get '/statement/all/:organization/:location' => 'statement#all', as: 'all_statement'
 
   resources :locations
   resources :organizations
