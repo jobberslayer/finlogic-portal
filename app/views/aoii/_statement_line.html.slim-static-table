@@ -1,0 +1,19 @@
+tr
+  - if !c1.nil?
+    td 
+      -if c2.nil? && amount.nil?
+        strong #{c1}
+      -else
+        #{c1} 
+  - else
+    td #{'&nbsp;'.html_safe}
+
+  -if !c2.nil?
+    td #{c2} 
+  - else
+    td #{'&nbsp;'.html_safe}
+
+  - if !amount.nil?
+    td class='text-right' #{doll amount}
+  -else
+    td #{'&nbsp;'.html_safe}

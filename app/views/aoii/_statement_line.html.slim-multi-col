@@ -1,0 +1,38 @@
+tr
+  - if data["col#{line}"] == 1
+    td #{data["key#{line}"]}
+    td #{'&nbsp;'.html_safe}
+    td #{'&nbsp;'.html_safe}
+    td #{'&nbsp;'.html_safe}
+    td #{'&nbsp;'.html_safe}
+  -elsif data["col#{line}"] == 2
+    td #{'&nbsp;'.html_safe}
+    td #{data["key#{line}"]}
+    td #{'&nbsp;'.html_safe}
+    td #{'&nbsp;'.html_safe}
+    td #{'&nbsp;'.html_safe}
+  -elsif data["col#{line}"] == 3
+    td #{'&nbsp;'.html_safe}
+    td #{'&nbsp;'.html_safe}
+    td #{data["key#{line}"]}
+    td #{'&nbsp;'.html_safe}
+    td #{'&nbsp;'.html_safe}
+  -elsif data["col#{line}"] == 4
+    td #{'&nbsp;'.html_safe}
+    td #{'&nbsp;'.html_safe}
+    td #{'&nbsp;'.html_safe}
+    td #{data["key#{line}"]}
+    td #{'&nbsp;'.html_safe}
+  -elsif data["col#{line}"] == 5
+    td #{'&nbsp;'.html_safe}
+    td #{'&nbsp;'.html_safe}
+    td #{'&nbsp;'.html_safe}
+    td #{'&nbsp;'.html_safe}
+    td #{data["key#{line}"]}
+  -else
+    td ERROR
+
+  - if data["amount#{line}"].blank?
+    td #{'&nbsp;'.html_safe}
+  -else
+    td class='text-right' #{doll data["amount#{line}"]}

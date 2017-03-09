@@ -11,7 +11,7 @@ class AoiiController < ApplicationController
     if @location.nil?
       flash.now[:alert]= 'Not a valid location'
     else
-      @data = AoiiIncomeStatement.where(location_id: @location.id).order('created_at').last
+      @data = IncomeStatement.where(location_id: @location.id).order('created_at').last
     end
   end
 end
