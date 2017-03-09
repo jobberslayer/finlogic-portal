@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  location_id: 1
+  key1: MyString
+  amount1: 9.99
+  col1: 1
+
+two:
+  location_id: 1
+  key1: MyString
+  amount1: 9.99
+  col1: 1
