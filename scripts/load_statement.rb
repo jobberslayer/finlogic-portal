@@ -36,6 +36,7 @@ start_data_col = csv[3].count(nil)
 
 houses = csv[3].reject {|h| h.blank?}
 statement_objs = {}
+house_data = {} 
 
 i = 1
 csv[4..csv.size].each do |row|
@@ -73,16 +74,25 @@ csv[4..csv.size].each do |row|
       statement.save
       location.save
       statement_objs[house] = statement
+      house_data[house] = []
     end
 
-    statement_objs[house]["key#{i}"] = name
-    statement_objs[house]["col#{i}"] = col
     amount =  row[house_num].blank? ? row[house_num] : row[house_num].gsub(',','')
-    statement_objs[house]["amount#{i}"] = amount 
+    hash = {
+      key: name,
+      col: col,
+      amount: amount
+    }
+    house_data[house].push hash
+
     house_num += 1
   end
 
   i += 1
+end
+
+houses.each do |house|
+  statement_objs[house].statement_data = house_data[house].to_json
 end
 
 statement_objs.values.each do |o|

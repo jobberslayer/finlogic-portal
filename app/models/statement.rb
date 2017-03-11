@@ -18,15 +18,15 @@ class Statement < ApplicationRecord
       remove_empty_headers = false
     end
 
-    mydata = [] 
-    (1..Statement.columns.size).each do |x|
-      break if self["key#{x}"].blank?
-      next if skip_zero_amts && self["amount#{x}"] == 0.0
-      next if condense && self["col#{x}"] >= 4 && !self["key#{x}"].downcase.starts_with?('total')
+    mydata = []
+    s_data = JSON.parse(self.statement_data)
+    s_data.each do |h|
+      next if skip_zero_amts && !h["amount"].nil? && h["amount"].to_f == 0.0
+      next if condense && h["col"] >= 4 && !h["key"].downcase.starts_with?('total')
       myhash = {
-        key:    self["key#{x}"],
-        col:    self["col#{x}"].to_i,
-        amount: self["amount#{x}"],
+        key:    h["key"],
+        col:    h["col"].to_i,
+        amount: h["amount"].nil? ? nil : h["amount"].to_f
       }
       mydata.push myhash
     end
@@ -36,7 +36,7 @@ class Statement < ApplicationRecord
       filtered = []
       mydata.each do |h|
         next_entry = i + 1
-        if h[:amount].blank? && mydata[next_entry][:col] <= h[:col]
+        if !mydata[next_entry].nil? && h[:amount].blank? && mydata[next_entry][:col] <= h[:col]
           i += 1
           next
         else

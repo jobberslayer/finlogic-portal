@@ -15,6 +15,6 @@ module Portal
 
     config.enable_dependency_loading = true
     config.eager_load_paths << Rails.root.join('lib')
-
+    MYCONFIG = YAML.load_file("#{Rails.root.to_s}/config/config.yml")[Rails.env]
   end
 end

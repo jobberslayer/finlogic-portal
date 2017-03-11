@@ -9,7 +9,7 @@ ul class="nav nav-tabs" role="tablist"
 div class="tab-content"
   div role="tabpanel" class="tab-pane fade show active" id="balance_statement"
     center
-      h1 AOII - #{ @location.name unless @location.nil? } 
+      h1 #{@location.organization.name} - #{ @location.name unless @location.nil? } 
       h2 Balance Statement
       p #{@bs_time_period}
 
@@ -22,7 +22,7 @@ div class="tab-content"
 
   div role="tabpanel" class="tab-pane fade" id="income_statement"
     center
-      h1 AOII - #{ @location.name unless @location.nil? } 
+      h1 #{@location.organization.name} - #{ @location.name unless @location.nil? } 
       h2 Income Statement
       p #{@is_time_period}
 
