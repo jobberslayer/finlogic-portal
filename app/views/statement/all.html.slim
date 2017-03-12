@@ -17,7 +17,21 @@ div class="tab-content"
     - unless @bs_data.nil?
       div class='container col-sm-8'
         table class='table table-striped' width='50%'
+          - @printed = {}
           - @bs_data.each do |line| 
+            - parts = line[:path].split('|', -1)
+            - tmp_path = []
+            - parts.each do |p|
+              - tmp_path.push p
+              - unless @printed.include?(tmp_path.join("|"))
+                - next if p.empty?
+                tr
+                  td 
+                    = statement_indent(tmp_path.join("|").path_indent) 
+                    = icon('caret-right', '&nbsp;'.html_safe)
+                    = p
+                  td 
+                - @printed[tmp_path.join("|")] = true
             = statement_line(line)
 
   div role="tabpanel" class="tab-pane fade" id="income_statement"
@@ -30,5 +44,19 @@ div class="tab-content"
       div class='container col-sm-12'
         div class='container'
           table class='table table-striped' width='50%'
+            - @printed = {}
             - @is_data.each do |line| 
+              - parts = line[:path].split('|', -1)
+              - tmp_path = []
+              - parts.each do |p|
+                - tmp_path.push p
+                - unless @printed.include?(tmp_path.join("|"))
+                  - next if p.empty?
+                  tr
+                    td 
+                      = statement_indent(tmp_path.join("|").path_indent) 
+                      = icon('caret-right', '&nbsp;'.html_safe)
+                      = p
+                    td 
+                  - @printed[tmp_path.join("|")] = true
               = statement_line(line)

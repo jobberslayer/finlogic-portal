@@ -7,5 +7,19 @@ center
 - unless @data.nil?
   div class='container col-sm-8'
     table class='table table-striped' width='50%'
-      - @data.each do |line| 
+      - @printed = {}
+      - @data.each do |line|
+        - parts = line[:path].split('|', -1)
+        - tmp_path = []
+        - parts.each do |p|
+          - tmp_path.push p
+          - unless @printed.include?(tmp_path.join("|"))
+            - next if p.empty?
+            tr
+              td 
+                = statement_indent(tmp_path.join("|").path_indent) 
+                = icon('caret-right', '&nbsp;'.html_safe)
+                = p
+              td 
+            - @printed[tmp_path.join("|")] = true
         = statement_line(line)

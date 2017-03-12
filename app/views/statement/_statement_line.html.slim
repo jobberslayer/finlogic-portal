@@ -1,11 +1,6 @@
 tr
   td 
-    = ('&nbsp;'*(5*(line[:col]-1))).html_safe 
-    - if line[:amount].blank?
-      = icon('caret-right', '&nbsp;'.html_safe)
+    = statement_indent(line[:indent])
     = line[:key]
 
-  - if line[:amount].blank?
-    td #{'&nbsp;'.html_safe}
-  -else
-    td class='text-right' #{doll line[:amount]}
+  td class='text-right' #{doll line[:amount]}
