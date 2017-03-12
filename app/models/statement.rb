@@ -50,7 +50,7 @@ class Statement < ApplicationRecord
     end
   end
 
-  def to_array(skip_zero_amts=false, remove_empty_headers=false, condense=false)
+  def to_array(skip_zero_amts=false, condense=false)
     # no sense doing the rest of this if condensed is on
     if condense
       remove_empty_headers = false
@@ -74,23 +74,6 @@ class Statement < ApplicationRecord
 
     return mydata
 
-    # if remove_empty_headers
-    #   i=0
-    #   filtered = []
-    #   mydata.each do |h|
-    #     next_entry = i + 1
-    #     if !mydata[next_entry].nil? && h[:amount].blank? && mydata[next_entry][:col] <= h[:col]
-    #       i += 1
-    #       next
-    #     else
-    #       filtered.push h
-    #     end
-    #     i += 1
-    #   end
-    #   return filtered
-    # else
-    #   return mydata
-    # end
   end
 
 end
