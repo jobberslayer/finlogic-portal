@@ -26,14 +26,14 @@ class StatementController < ApplicationController
         flash.now[:alert] = "No balance statement for #{org.titleize} - #{loc.titleize}"
       else
         @bs_time_period = bs.time_period
-        @bs_data = bs.to_array(true, true, false)
+        @bs_data = bs.to_array(true, false)
       end
 
       if is.nil?
         flash.now[:alert] = "No income statement for #{org.titleize} - #{loc.titleize}"
       else
         @is_time_period = is.time_period
-        @is_data = is.to_array(true, true, false)
+        @is_data = is.to_array(true, false)
       end
     end
   end
@@ -81,7 +81,7 @@ class StatementController < ApplicationController
         return
       end
       @time_period = s.time_period
-      @data = s.to_array(true, true, false)
+      @data = s.to_array(true, false)
     end
   end
 end
