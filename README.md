@@ -1,15 +1,5 @@
 # README
 
-Time:
- ☐ 1st entry : 20 
- ☐ 2017-03-09: 7
- ☐ 2017-03-10: 5
- ☐ 2017-03-12: 5
- ☐ 2017-03-13: 4
-
-
-
-
 This README would normally document whatever steps are necessary to get the
 application up and running.
 
