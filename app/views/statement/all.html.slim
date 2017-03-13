@@ -1,12 +1,13 @@
-ul class="nav nav-tabs" role="tablist"
-  li class="nav-item"
-    a class="nav-link active" href="#balance_statement" role="tab" data-toggle="tab" 
-      span Balance Sheet
-  li class="nav-item"
-    a class="nav-link" href="#income_statement" role="tab" data-toggle="tab"
-      span Income Statement
+navbar.nav.fixed-top.navbar-lower
+  ul class="nav nav-tabs" role="tablist"
+    li class="nav-item"
+      a class="nav-link active" href="#balance_statement" role="tab" data-toggle="tab" 
+        span Balance Sheet
+    li class="nav-item"
+      a class="nav-link" href="#income_statement" role="tab" data-toggle="tab"
+        span Income Statement
 
-div class="tab-content"
+div class="tab-content navbar-lower-container"
   div role="tabpanel" class="tab-pane fade show active" id="balance_statement"
     center
       h1 #{@location.organization.name} - #{ @location.name unless @location.nil? } 
