@@ -10,15 +10,12 @@ html
   body
     =render 'layouts/portal_menu'
 
-    - if notice
-      p class="notice"
-        = notice
-    - if alert
-      p class="alert"
-        = alert
-
-    br
-
     div class='container col-lg-12'
+      - if notice
+        p class="notice"
+            = notice
+      - if alert
+        p class="alert"
+            = alert
       == yield
   

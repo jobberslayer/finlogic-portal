@@ -16,6 +16,11 @@ class LocationsController < ApplicationController
   # GET /locations/new
   def new
     @location = Location.new
+    @organization = Organization.find_by(id: params[:org_id])
+    if @organization.nil?
+      flash.now[:alert] = "Location needs a valid organization to be saved in."
+      return
+    end
   end
 
   # GET /locations/1/edit
@@ -25,12 +30,20 @@ class LocationsController < ApplicationController
   # POST /locations
   # POST /locations.json
   def create
+
     @location = Location.new(location_params)
+    @organization = Organization.find_by(id: params[:organization_id])
+    if @organization.nil?
+      flash.now[:alert] = "Location needs a valid organization to be saved in."
+      return
+    end
 
     respond_to do |format|
       if @location.save
         format.html { redirect_to @location, notice: 'Location was successfully created.' }
         format.json { render :show, status: :created, location: @location }
+        @organization.locations.push @location
+        @organization.save
       else
         format.html { render :new }
         format.json { render json: @location.errors, status: :unprocessable_entity }

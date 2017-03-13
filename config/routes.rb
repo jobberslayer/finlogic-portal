@@ -3,6 +3,8 @@ Rails.application.routes.draw do
   get '/statement/balance/:organization/:location' => 'statement#balance', as: 'balance_statement'
   get '/statement/all/:organization/:location' => 'statement#all', as: 'all_statement'
 
+  get '/locations/new/:org_id' => 'locations#new', as: 'new_organization_location'
+
   resources :locations
   resources :organizations
   devise_for :users

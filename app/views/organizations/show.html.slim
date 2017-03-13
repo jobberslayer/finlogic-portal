@@ -8,6 +8,10 @@ div
 
 hr
 
+= link_to 'New Location', new_organization_location_path(@organization.id), class: 'btn btn-prmiary'
+
+hr
+
 div
   fieldset
     legend Locations
@@ -17,7 +21,7 @@ div
           th Name
           th colspan=2
       tbody
-        - @organization.locations.each do |loc|
+        - @organization.locations.sort{|a,b| a.name <=> b.name}.each do |loc|
           tr
             td = loc.name
             td = link_to :info, location_path(loc)

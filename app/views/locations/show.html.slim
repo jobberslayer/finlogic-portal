@@ -1,7 +1,5 @@
-p id="notice" #{notice}
-
 h2 = @location.name
 
 .btn-group
   = link_to 'Edit', edit_location_path(@location), class: 'btn btn-primary'
-  = link_to 'Back', :back, class: 'btn btn-primary'
+  = link_to 'Back', organization_path(@location.organization_id), class: 'btn btn-primary'
