@@ -16,6 +16,39 @@
 @import "font-awesome-sprockets";
 @import "font-awesome";
 
+
+body {
+  margin-top: 50px;
+}
+
+.main-nav {
+  z-index: 1000;
+}
+
+.navbar-lower {
+  margin-top: 73px;
+  z-index: 900;
+  background-color: #7bbe62;
+}
+
+.navbar-lower a:link.active {
+  background-color: #62984e;
+  color: white;
+}
+
+.navbar-lower a:hover {
+  background-color: #afd8a0;
+}
+
+.navbar-lower a:link{
+  background-color: #a2d191;
+  color: grey;
+}
+
+.navbar-lower-container {
+  margin-top: 125px; 
+}
+
 .notice {
     @extend .alert-success;    
 }
