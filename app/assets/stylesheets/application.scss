@@ -16,32 +16,47 @@
 @import "font-awesome-sprockets";
 @import "font-awesome";
 
+$highlight: #afd8a0;
+$dark: #7bbe62;
+$chosen: #62984e;
 
 body {
   margin-top: 110px;
 }
 
+.dropdown-menu {
+  width:320px;
+}
+
+.dropdown-menu a:hover {
+  background-color: $highlight 
+}
+
+.dropdown-item:not(:last-child) {
+  border-bottom: 1px dotted grey;
+}
+
 .main-nav {
-  z-index: 1000;
+  z-index: 1000
 }
 
 .navbar-lower {
   margin-top: 73px;
   z-index: 900;
-  background-color: #7bbe62;
+  background-color: $dark;
 }
 
 .navbar-lower a:link.active {
-  background-color: #62984e;
+  background-color: $chosen;
   color: white;
 }
 
 .navbar-lower a:hover {
-  background-color: #afd8a0;
+  background-color: $highlight;
 }
 
 .navbar-lower a:link{
-  background-color: #a2d191;
+  background-color: $highlight;
   color: grey;
 }
 

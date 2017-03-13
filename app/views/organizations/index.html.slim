@@ -12,7 +12,7 @@ div
         th colspan="2"
 
     tbody
-      - @organizations.sort.each do |organization|
+      - @organizations.sort{|a,b| a.name <=> b.name}.each do |organization|
         tr
           td #{organization.name}
           td = link_to 'Show', organization

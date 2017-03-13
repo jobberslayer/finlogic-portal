@@ -11,11 +11,11 @@ nav class="navbar navbar-toggleable-md navbar-light bg-faded fixed-top main-nav"
     ul class="navbar-nav navbar-right"
       li class="nav-item dropdown" style="margin-right:50px;"
         - if user_signed_in?
-          a class='btn btn-secondary dropdown-toggle' data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+          a class='dropdown-toggle nav-link' href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
             = icon("user-o", "#{current_user.information.name}")
           div class='dropdown-menu dropdown-menu-right '
             - if current_user.admin?
-              = link_to(icon('tags', 'Organizations'), organizations_path, class: 'dropdown-item')
+              = link_to(icon('users', 'Organizations'), organizations_path, class: 'dropdown-item')
             = link_to(icon('user-secret', 'Change password'), edit_user_registration_path, class: 'dropdown-item') 
             = link_to(icon('sign-out', 'Logout'), destroy_user_session_path, class: 'dropdown-item', :method => :delete) 
         - else
