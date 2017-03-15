@@ -17,7 +17,7 @@ nav class="navbar navbar-toggleable-md navbar-light bg-faded fixed-top main-nav"
             - if current_user.admin?
               = link_to(icon('users', 'Organizations'), organizations_path, class: 'dropdown-item')
             = link_to(icon('user-secret', 'Change password'), edit_user_registration_path, class: 'dropdown-item') 
-            = link_to(icon('sign-out', 'Logout'), destroy_user_session_path, class: 'dropdown-item', :method => :delete) 
+            = link_to(icon('sign-out', 'Logout'), destroy_user_session_path, method: :delete, class: 'dropdown-item') 
         - else
           = link_to('Login', new_user_session_path, class: 'nav-link')
 
