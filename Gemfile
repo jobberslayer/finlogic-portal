@@ -39,6 +39,8 @@ gem 'jbuilder', '~> 2.5'
 gem 'bootstrap'
 gem 'font-awesome-sass'
 
+gem 'tether-rails'
+
 # Users
 gem 'devise'
 gem 'cancancan'
