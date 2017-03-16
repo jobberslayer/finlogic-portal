@@ -24,6 +24,37 @@ body {
   margin-top: 110px;
 }
 
+.btn-primary {
+  background: $dark !important;
+  border-color: $highlight !important;
+}
+
+.btn-primary:hover {
+  background-color: $chosen !important;
+  border-color: $highlight !important;
+}
+
+.btn-primary:active {
+  background-color: $chosen !important;
+  border-color: $highlight !important;
+}
+
+.btn-primary:focus {
+  background-color: $chosen !important;
+  border-color: $highlight !important;
+}
+
+a {
+  color: $chosen;
+}
+
+a:hover {
+  color: $dark;
+}
+
+textarea:focus, input:focus, input[type]:focus, .uneditable-input:focus {
+  border-color: $chosen;
+}
 .dropdown-menu {
   width:320px;
 }
@@ -64,12 +95,14 @@ body {
   margin-top: 125px; 
 }
 
-.notice {
-    @extend .alert-success;    
+.alert {
+    @extend .alert-danger;
 }
 
-.alert {
-    @extend .alert-danger
+.notice {
+    @extend .alert;
+    @extend .bg-success; 
+    color: white;
 }
 
 
@@ -87,10 +120,6 @@ body {
   input {
     border: 2px solid red;
   }
-}
-
-.notice {
-  @extend .alert-warning
 }
 
 .hidden {
