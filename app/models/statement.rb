@@ -11,7 +11,7 @@ class Statement < ApplicationRecord
   def self.latest_balance(location)
     return Statement.where(location_id: location.id, statement_type: TYPE_BALANCE).order('created_at').last
   end
-  
+
   def to_array_old(skip_zero_amts=false, remove_empty_headers=false, condense=false)
     # no sense doing the rest of this if condensed is on
     if condense
@@ -68,7 +68,6 @@ class Statement < ApplicationRecord
         indent: h["indent"].to_i,
         path:   h["path"]
       }
-      pp myhash
       mydata.push myhash
     end
 

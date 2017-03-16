@@ -10,7 +10,7 @@ navbar.nav.fixed-top.navbar-lower
 div class="tab-content navbar-lower-container"
   div role="tabpanel" class="tab-pane fade show active" id="balance_statement"
     center
-      h1 #{@location.organization.name} - #{ @location.name unless @location.nil? } 
+      = statement_org_name(@location)
       h2 Balance Sheet
       p #{@bs_time_period}
 
