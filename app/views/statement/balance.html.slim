@@ -1,5 +1,5 @@
 center
-  h1 AOII - #{ @location.name unless @location.nil? } 
+  = statement_org_name(@location)
   h2 Balance Sheet
   p #{@time_period}
 
