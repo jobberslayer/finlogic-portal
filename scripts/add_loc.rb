@@ -15,6 +15,15 @@ OptionParser.new do |opt|
 end.parse!
 
 org = Organization.by_name(o[:org_name])
+if Organization.nil?
+  p "Organization does not exist"
+  exit
+end
+
+if Location.where(name: o[:name], organization_id: org.id).count > 0
+  p "Location already exists in the org"
+  exit
+end
 
 l = Location.new({
   name: o[:name],
