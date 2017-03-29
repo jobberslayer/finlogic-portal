@@ -10,4 +10,8 @@ class String
   def path_child_indent
     self.split('|', -1).count + 1 
   end
+
+  def path_chomp
+    self.split('|', -1)[0..-2].join('|')
+  end
 end

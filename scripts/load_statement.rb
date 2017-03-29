@@ -9,20 +9,25 @@ OptionParser.new do |opt|
   opt.on('--org ORGNAME') { |x| o[:org_name] = x }    
   opt.on('--income') { o[:income] = true }    
   opt.on('--balance') { o[:balance] = true }    
+  opt.on('--budget') { o[:budget] = true }    
   opt.on('--myhelp') { puts opt; exit }    
 end.parse! 
 
+version = '1.0'
+
 statement_type = nil
-if !o[:income] && !o[:balance]
+if !o[:income] && !o[:balance] && !o[:budget]
   p "Must either be an income or balance statement."
   exit
-elsif o[:income] && o[:balance]
+elsif o[:income] && o[:balance] && o[:budget]
   p "Can only choose one type of statement."
   exit
 elsif o[:income]
   statement_type = Statement::TYPE_INCOME 
 elsif o[:balance]
   statement_type = Statement::TYPE_BALANCE 
+elsif o[:budget]
+  statement_type = Statement::TYPE_BUDGET 
 end
 
 csv = CSV.read(o[:file])
@@ -60,6 +65,7 @@ csv[4..csv.size].each do |row|
       statement.title1 = csv[0][0]
       statement.title2 = csv[1][0]
       statement.time_period = csv[2][0]
+      statement.statement_version = version
       location.statements.push statement
       statement.save
       location.save
@@ -91,7 +97,7 @@ def add_path(path, piece, place)
   return path
 end
 
-def back_path(path, diff) 
+def backup(path, diff)
   if diff > 0
     parts = path.split(DELIM, -1)
     (1..diff).each do |x|
@@ -103,40 +109,30 @@ def back_path(path, diff)
   end
 end
 
+def rebuild_path(path, new_part, last_col, col)
+  if col - last_col > 0
+    path = add_path(path, new_part, col)
+  elsif col - last_col < 0
+    path = backup(path, last_col - col)
+  else
+    path = backup(path, 1)
+    path += "#{DELIM}#{new_part}"
+  end
+
+  return path
+end
+
 path = ''
 last_col = 0
 houses.each do |house|
   path_struct = []
   d = house_data[house]
   d.each do |h|
-    if h[:col].to_i > last_col
-      if h[:amount].blank?
-        path = add_path(path, h[:key], h[:col].to_i)
-      else
-        h[:path] = path
-        h[:indent] = path.path_child_indent
-        path_struct.push h
-      end
-      last_col = h[:col].to_i
-    elsif h[:col].to_i < last_col
-      path = back_path(path, last_col - h[:col].to_i)
-      if !h[:amount].blank?
-        h[:path] = path
-        h[:indent] = path.path_child_indent
-        path_struct.push h
-      end
-      last_col = h[:col].to_i
-    else
-      if h[:amount].blank?
-        #path = back_path(path, last_col - 1 ) 
-        path = add_path(path, h[:key], h[:col].to_i)
-      else
-        h[:path] = path
-        h[:indent] = path.path_child_indent
-        path_struct.push h
-      end
-      last_col = h[:col].to_i
-    end
+    path = rebuild_path(path, h[:key], last_col, h[:col].to_i)
+    h[:path] = path.path_chomp
+    h[:indent] = path.path_child_indent
+    path_struct.push h
+    last_col = h[:col].to_i
   end
   house_data[house] = path_struct
 end
@@ -146,6 +142,11 @@ houses.each do |house|
   statement_objs[house].statement_data = house_data[house].to_json
 end
 
+i = 0
 statement_objs.values.each do |o|
+  puts "Saving #{o.location.name}"
   o.save
+  i += 1
 end
+
+puts "Saved: #{i} statements"

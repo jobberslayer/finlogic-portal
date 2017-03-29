@@ -4,3 +4,8 @@ tr
     = line[:key]
 
   td class='text-right' #{doll line[:amount]}
+
+  - unless budget.nil?
+    - hash = Statement.find_by_path(budget, line[:path], line[:key])
+    - unless hash.nil?
+      td class='text-right' #{doll hash[:amount]}
