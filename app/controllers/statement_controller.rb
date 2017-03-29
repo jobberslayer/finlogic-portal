@@ -22,6 +22,7 @@ class StatementController < ApplicationController
     else
       is = Statement.latest_income(@location)
       bs = Statement.latest_balance(@location)
+      bu = Statement.latest_budget(@location)
       if bs.nil?
         flash.now[:alert] = "No balance statement for #{org.titleize} - #{loc.titleize}"
       else
@@ -34,6 +35,10 @@ class StatementController < ApplicationController
       else
         @is_time_period = is.time_period
         @is_data = is.to_array(true, false)
+      end
+
+      unless bu.nil?
+        @bu_data = bu.to_array(true, false)
       end
     end
   end
@@ -70,6 +75,7 @@ class StatementController < ApplicationController
       s = nil
       if s_type == Statement::TYPE_INCOME 
         s = Statement.latest_income(@location)
+        bu = Statement.latest_budget(@location)
       elsif s_type == Statement::TYPE_BALANCE
         s = Statement.latest_balance(@location)
       else
@@ -82,6 +88,10 @@ class StatementController < ApplicationController
       end
       @time_period = s.time_period
       @data = s.to_array(true, false)
+
+      unless bu.nil?
+        @bu_data = bu.to_array(true, false)
+      end
     end
   end
 end
