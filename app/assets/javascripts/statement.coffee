@@ -2,12 +2,14 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
-$ ->
+$(document).on 'turbolinks:load', ->
   $('#pdf-income').hide()
-  $('#income-tab').on 'shown.bs.tab', (e) ->
-    $('#pdf-balance').hide()
-    $('#pdf-income').show()
-  $('#balance-tab').on 'shown.bs.tab', (e) ->
-    $('#pdf-income').hide()
-    $('#pdf-balance').show()
 
+  $('#income-tab').on 'show.bs.tab', (e) ->
+    $('#pdf-income').show()
+  $('#income-tab').on 'hide.bs.tab', (e) ->
+    $('#pdf-income').hide()
+  $('#balance-tab').on 'show.bs.tab', (e) ->
+    $('#pdf-balance').show()
+  $('#balance-tab').on 'hide.bs.tab', (e) ->
+    $('#pdf-balance').hide()

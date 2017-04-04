@@ -85,7 +85,7 @@ class StatementController < ApplicationController
       flash.now[:alert]= 'Not a valid location'
     else
       s = nil
-      if s_type == Statement::TYPE_INCOME 
+      if s_type == Statement::TYPE_INCOME
         s = Statement.latest_income(@location)
         bu = Statement.latest_budget(@location)
       elsif s_type == Statement::TYPE_BALANCE
