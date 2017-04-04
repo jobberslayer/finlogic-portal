@@ -1,11 +1,15 @@
 navbar.nav.fixed-top.navbar-lower
-  ul class="nav nav-tabs" role="tablist"
+  ul id='mytab' class="nav nav-tabs mr-auto" role="tablist"
     li class="nav-item"
-      a class="nav-link active" href="#balance_statement" role="tab" data-toggle="tab" 
+      a id='balance-tab' class="nav-link active" href="#balance_statement" role="tab" data-toggle="tab" 
         span Balance Sheet
     li class="nav-item"
-      a class="nav-link" href="#income_statement" role="tab" data-toggle="tab"
+      a id='income-tab' class="nav-link" href="#income_statement" role="tab" data-toggle="tab"
         span Income Statement
+  li class="nav-item" style="margin-right:20px;"
+    div#
+    = link_to(icon('print', id: 'pdf-balance', class: 'nav-bar-icon-btn'), balance_statement_path(@location.organization.name, @location.name, format: 'pdf'), target: '_blank')
+    = link_to(icon('print', id: 'pdf-income', class: 'nav-bar-icon-btn'), income_statement_path(@location.organization.name, @location.name, format: 'pdf'), target: '_blank')
 
 div class="tab-content navbar-lower-container"
   div role="tabpanel" class="tab-pane fade show active" id="balance_statement"

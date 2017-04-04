@@ -55,6 +55,12 @@ class StatementController < ApplicationController
 
   def balance
     build_statement(Statement::TYPE_BALANCE)
+    respond_to do |format|
+      format.html
+      format.pdf do
+        render pdf: "#{@location.organization.name}-#{@location.name}-#{@time_period}-BalanceSheet" #, show_as_html: true
+      end
+    end
   end
 
   def build_statement(s_type)

@@ -95,6 +95,13 @@ textarea:focus, input:focus, input[type]:focus, .uneditable-input:focus {
   margin-top: 125px; 
 }
 
+.nav-bar-icon-btn {
+  @extend .btn;
+  @extend .btn-primary;
+  font-size: 24px;
+}
+
+
 .alert {
     @extend .alert-danger;
 }
