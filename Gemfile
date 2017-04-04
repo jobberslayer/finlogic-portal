@@ -38,8 +38,13 @@ gem 'jbuilder', '~> 2.5'
 #  Style
 gem 'bootstrap'
 gem 'font-awesome-sass'
+gem 'font-awesome-rails'
 
 gem 'tether-rails'
+
+# pdf creation
+gem 'wicked_pdf'
+gem 'wkhtmltopdf-binary'
 
 # Users
 gem 'devise'

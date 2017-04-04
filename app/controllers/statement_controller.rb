@@ -45,6 +45,12 @@ class StatementController < ApplicationController
 
   def income
     build_statement(Statement::TYPE_INCOME)
+    respond_to do |format|
+      format.html
+      format.pdf do
+        render pdf: "#{@location.organization.name}-#{@location.name}-#{@time_period}-IncomeStatement" #, show_as_html: true
+      end
+    end
   end
 
   def balance
