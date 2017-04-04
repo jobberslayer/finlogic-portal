@@ -1,12 +1,18 @@
 html
   head
-    = stylesheet_link_tag "https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css", media: "all", "data-turbolinks-track" => true
-    = wicked_pdf_stylesheet_link_tag "font-awesome"
     = wicked_pdf_stylesheet_link_tag "application"
     css:
       body {
-        font-family: 'FontAwesome'
-        src: url(file:////home/kevin/Dropbox/finlogic/workspace/finlogic-portal/public/assets/fontawesome-webfont.woff)
+        font-family: 'FontAwesome';
+        font-size: 10pt;
+      }
+      td {
+        font-family: 'FontAwesome';
+        font-size: 10pt;
+      }
+      h2 {
+        font-family: 'FontAwesome';
+        font-size: 18pt;
       }
   body
     = render 'statement.html', location: @location, time_period: @time_period,  data: @data, bu_data: @bu_data, title: 'Income Statement'
