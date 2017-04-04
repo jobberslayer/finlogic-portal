@@ -1,6 +1,6 @@
 module StatementHelper
   def statement_line(line, budget=nil)
-    render 'statement_line', line: line, budget: budget
+    render 'statement_line.html', line: line, budget: budget
   end
 
   def statement_indent(indent)
@@ -10,9 +10,9 @@ module StatementHelper
 
   def statement_org_name(location)
     if @location.organization.logo.nil?
-      render 'statement_plain_org_name', location: @location
+      render 'statement_plain_org_name.html', location: @location
     else
-      render 'statement_logo_org_name', location: @location
+      render 'statement_logo_org_name.html', location: @location
     end
   end
 

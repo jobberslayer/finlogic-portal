@@ -1,3 +1,6 @@
-= image_tag "/images/logos/#{location.organization.logo}"
+- if request.format.to_s.include?('pdf')
+  = wicked_pdf_image_tag "/images/logos/#{location.organization.logo}"
+- else
+  = image_tag "/images/logos/#{location.organization.logo}"
 br
 h3 #{location.name}
