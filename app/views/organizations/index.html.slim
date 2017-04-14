@@ -3,7 +3,7 @@ div
 
 hr
 
-div
+div.col-lg-4.col-md-4.col-sm-4
   h1 Organizations
 
   table class='table table-striped'
@@ -14,8 +14,11 @@ div
     tbody
       - @organizations.sort{|a,b| a.name <=> b.name}.each do |organization|
         tr
-          td #{organization.name}
-          td = link_to 'Show', organization
-          td = link_to 'Edit', edit_organization_path(organization)
+          td 
+            = link_to icon('info-circle'), organization, title: 'Information / Locations'
+            = space_over
+            = link_to icon('edit'), edit_organization_path(organization), title: 'Edit'
+            = space_over
+            = organization.name
 
 

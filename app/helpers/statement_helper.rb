@@ -1,6 +1,6 @@
 module StatementHelper
-  def statement_line(line, budget=nil)
-    render 'statement_line.html', line: line, budget: budget
+  def statement_line(line, budget=nil, forecast=nil)
+    render 'statement_line.html', line: line, budget: budget, forecast: forecast
   end
 
   def statement_indent(indent)
