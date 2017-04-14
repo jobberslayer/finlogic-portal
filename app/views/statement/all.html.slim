@@ -13,6 +13,6 @@ navbar.nav.fixed-top.navbar-lower
 
 div class="tab-content navbar-lower-container"
   div role="tabpanel" class="tab-pane fade show active" id="balance_statement"
-    = render 'statement', location: @location, time_period: @bs_time_period,  data: @bs_data, bu_data: nil, title: 'Balance Sheet'
+    = render 'statement', location: @location, time_period: @bs_time_period,  data: @bs_data, bu_data: nil, fc_data: nil, title: 'Balance Sheet'
   div role="tabpanel" class="tab-pane fade" id="income_statement"
-    = render 'statement', location: @location, time_period: @is_time_period,  data: @is_data, bu_data: @bu_data, title: 'Income Statement'
+    = render 'statement', location: @location, time_period: @is_time_period,  data: @is_data, bu_data: @bu_data, fc_data: @fc_data, title: 'Income Statement'

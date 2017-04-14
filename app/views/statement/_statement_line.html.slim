@@ -9,3 +9,9 @@ tr
     - hash = Statement.find_by_path(budget, line[:path], line[:key])
     - unless hash.nil?
       td class='text-right' #{doll hash[:amount]}
+
+  - unless forecast.nil?
+    - hash = Statement.find_by_path(forecast, line[:path], line[:key])
+    - unless hash.nil?
+      td class='text-right' #{doll hash[:amount]}
+

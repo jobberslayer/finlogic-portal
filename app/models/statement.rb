@@ -4,6 +4,7 @@ class Statement < ApplicationRecord
   TYPE_INCOME = 'income'
   TYPE_BALANCE = 'balance'
   TYPE_BUDGET = 'budget'
+  TYPE_FORECAST = 'forecast'
 
   def self.latest_income(location)
     return Statement.where(location_id: location.id, statement_type: TYPE_INCOME).order('created_at').last
@@ -15,6 +16,10 @@ class Statement < ApplicationRecord
 
   def self.latest_budget(location)
     return Statement.where(location_id: location.id, statement_type: TYPE_BUDGET).order('created_at').last
+  end
+
+  def self.latest_forecast(location)
+    return Statement.where(location_id: location.id, statement_type: TYPE_FORECAST).order('created_at').last
   end
 
   def self.find_by_path(array, path, key)

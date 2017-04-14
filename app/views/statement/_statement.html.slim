@@ -8,10 +8,13 @@ center
     div class='container'
       table class='table table-striped' width='50%'
         - @printed = {}
-        - unless bu_data.nil?
+        - unless bu_data.nil? && fc_data.nil?
           td
           th.text-right To Date
+        - unless bu_data.nil?
           th.text-right Budget  
+        - unless fc_data.nil?
+          th.text-right Forecast  
         - data.each do |line| 
           - next if line[:amount].blank?
           - parts = line[:path].split('|', -1)
@@ -27,4 +30,4 @@ center
                   = p
                 td 
               - @printed[tmp_path.join("|")] = true
-          = statement_line(line, bu_data)
+          = statement_line(line, bu_data, fc_data)

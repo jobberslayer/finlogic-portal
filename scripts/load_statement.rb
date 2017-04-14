@@ -10,16 +10,17 @@ OptionParser.new do |opt|
   opt.on('--income') { o[:income] = true }    
   opt.on('--balance') { o[:balance] = true }    
   opt.on('--budget') { o[:budget] = true }    
+  opt.on('--forecast') { o[:forecast] = true }    
   opt.on('--myhelp') { puts opt; exit }    
 end.parse! 
 
 version = '1.0'
 
 statement_type = nil
-if !o[:income] && !o[:balance] && !o[:budget]
-  p "Must either be an income or balance statement."
+if !o[:income] && !o[:balance] && !o[:budget] && !o[:forecast]
+  p "Must either be an income or balance or budget or forecast statement."
   exit
-elsif o[:income] && o[:balance] && o[:budget]
+elsif o[:income] && o[:balance] && o[:budget] && o[:forecast]
   p "Can only choose one type of statement."
   exit
 elsif o[:income]
@@ -28,6 +29,8 @@ elsif o[:balance]
   statement_type = Statement::TYPE_BALANCE 
 elsif o[:budget]
   statement_type = Statement::TYPE_BUDGET 
+elsif o[:forecast]
+  statement_type = Statement::TYPE_FORECAST 
 end
 
 csv = CSV.read(o[:file])
@@ -56,10 +59,14 @@ csv[4..csv.size].each do |row|
     end
   end
 
-  house_num = start_data_col 
+  house_num = start_data_col
   houses.each do |house|
     unless statement_objs.key?(house)
       location = Location.by_name(org.name, house)
+      if location.nil?
+        puts "Location #{house} not found."
+        exit
+      end
       statement = Statement.new
       statement.statement_type = statement_type
       statement.title1 = csv[0][0]
