@@ -22,7 +22,8 @@ $chosen: #62984e;
 $nav-font-size: 18px;
 
 body {
-  margin-top: 160px;
+  position: relative;
+  margin-top: 80px;
 }
 
 .btn-primary {
@@ -85,7 +86,7 @@ textarea:focus, input:focus, input[type]:focus, .uneditable-input:focus {
 }
 
 .navbar-lower {
-  margin-top: 75px;
+  margin-top: 70px;
   z-index: 900;
   background-color: $dark;
   font-size: 18px;
