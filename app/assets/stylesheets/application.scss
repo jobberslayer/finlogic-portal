@@ -19,6 +19,7 @@
 $highlight: #afd8a0;
 $dark: #7bbe62;
 $chosen: #62984e;
+$nav-font-size: 18px;
 
 body {
   margin-top: 160px;
@@ -52,6 +53,10 @@ a:hover {
   color: $dark;
 }
 
+.title-break {
+  height: 10px;
+}
+
 textarea:focus, input:focus, input[type]:focus, .uneditable-input:focus {
   border-color: $chosen;
 }
@@ -68,13 +73,22 @@ textarea:focus, input:focus, input[type]:focus, .uneditable-input:focus {
 }
 
 .main-nav {
-  z-index: 1000
+  z-index: 1000;
+}
+
+.fa-navicon {
+  font-size: $nav-font-size; 
+}
+
+.nav-item {
+  font-size: $nav-font-size; 
 }
 
 .navbar-lower {
-  margin-top: 70px;
+  margin-top: 75px;
   z-index: 900;
   background-color: $dark;
+  font-size: 18px;
 }
 
 .navbar-lower a:link.active {
@@ -98,7 +112,8 @@ textarea:focus, input:focus, input[type]:focus, .uneditable-input:focus {
 .nav-bar-icon-btn {
   @extend .btn;
   @extend .btn-primary;
-  font-size: 24px;
+  font-size: 18px;
+  margin-top: 5px;
 }
 
 
