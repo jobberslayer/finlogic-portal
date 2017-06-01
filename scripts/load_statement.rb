@@ -3,18 +3,18 @@ require 'csv'
 require 'pp'
 require Rails.root.join('lib/string').to_s
 
-o = {}    
-OptionParser.new do |opt|    
-  opt.on('--file FILE') { |x| o[:file] = x }    
-  opt.on('--org ORGNAME') { |x| o[:org_name] = x }    
-  opt.on('--income') { o[:income] = true }    
-  opt.on('--balance') { o[:balance] = true }    
-  opt.on('--budget') { o[:budget] = true }    
-  opt.on('--forecast') { o[:forecast] = true }    
-  opt.on('--myhelp') { puts opt; exit }    
-end.parse! 
+o = {}
+OptionParser.new do |opt|
+  opt.on('--file FILE') { |x| o[:file] = x }
+  opt.on('--org ORGNAME') { |x| o[:org_name] = x }
+  opt.on('--income') { o[:income] = true }
+  opt.on('--balance') { o[:balance] = true }
+  opt.on('--budget') { o[:budget] = true }
+  opt.on('--forecast') { o[:forecast] = true }
+  opt.on('--myhelp') { puts opt; exit }
+end.parse!
 
-version = '1.0'
+version = 'aoii01'
 
 statement_type = nil
 if !o[:income] && !o[:balance] && !o[:budget] && !o[:forecast]
@@ -24,13 +24,13 @@ elsif o[:income] && o[:balance] && o[:budget] && o[:forecast]
   p "Can only choose one type of statement."
   exit
 elsif o[:income]
-  statement_type = Statement::TYPE_INCOME 
+  statement_type = Statement::TYPE_INCOME
 elsif o[:balance]
-  statement_type = Statement::TYPE_BALANCE 
+  statement_type = Statement::TYPE_BALANCE
 elsif o[:budget]
-  statement_type = Statement::TYPE_BUDGET 
+  statement_type = Statement::TYPE_BUDGET
 elsif o[:forecast]
-  statement_type = Statement::TYPE_FORECAST 
+  statement_type = Statement::TYPE_FORECAST
 end
 
 csv = CSV.read(o[:file])
@@ -45,7 +45,7 @@ start_data_col = csv[3].count(nil)
 
 houses = csv[3].reject {|h| h.blank?}
 statement_objs = {}
-house_data = {} 
+house_data = {}
 
 i = 1
 csv[4..csv.size].each do |row|
