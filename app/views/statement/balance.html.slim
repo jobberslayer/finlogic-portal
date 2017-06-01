@@ -1,1 +1,8 @@
-= render 'statement', location: @location, time_period: @time_period,  data: @data, bu_data: nil, title: 'Balance Sheet'
+navbar.nav.fixed-top.navbar-lower
+  ul id='mytab' class="nav nav-tabs mr-auto" role="tablist"
+    li class="nav-item" style="margin-right:20px;"
+      div#
+      = link_to(icon('print', id: 'pdf-balance', class: 'nav-bar-icon-btn'), balance_statement_path(@location.organization.name, @location.name, format: 'pdf'), target: '_blank')
+      = link_to(icon('print', id: 'pdf-income', class: 'nav-bar-icon-btn'), income_statement_path(@location.organization.name, @location.name, format: 'pdf'), target: '_blank')
+
+= render 'statement', location: @location, time_period: @time_period,  data: @data, bu_data: nil, fc_data: nil, title: 'Balance Sheet'
