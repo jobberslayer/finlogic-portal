@@ -28,22 +28,22 @@ class StatementController < ApplicationController
         flash.now[:alert] = "No balance statement for #{org.titleize} - #{loc.titleize}"
       else
         @bs_time_period = bs.time_period
-        @bs_data = bs.to_array(true, false)
+        @bs_data = bs.send("to_#{bs.statement_version}", true, false)
       end
 
       if is.nil?
         flash.now[:alert] = "No income statement for #{org.titleize} - #{loc.titleize}"
       else
         @is_time_period = is.time_period
-        @is_data = is.to_array(true, false)
+        @is_data = is.send("to_#{is.statement_version}", true, false)
       end
 
       unless bu.nil?
-        @bu_data = bu.to_array(true, false)
+        @bu_data = bu.send("to_#{bu.statement_version}", true, false)
       end
 
       unless fc.nil?
-        @fc_data = fc.to_array(true, false)
+        @fc_data = fc.send("to_#{fc.statement_version}", true, false)
       end
     end
   end
@@ -105,13 +105,13 @@ class StatementController < ApplicationController
         return
       end
       @time_period = s.time_period
-      @data = s.to_array(true, false)
+      @data = s.send("to_#{s.statement_version}", true, false)
 
       unless bu.nil?
-        @bu_data = bu.to_array(true, false)
+        @bu_data = bu.send("to_#{bu.statement_version}", true, false)
       end
       unless fc.nil?
-        @fc_data = bu.to_array(true, false)
+        @fc_data = bu.send("to_#{fc.statement_version}", true, false)
       end
     end
   end
