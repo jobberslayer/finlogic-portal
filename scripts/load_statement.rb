@@ -47,6 +47,17 @@ houses = csv[3].reject {|h| h.blank?}
 statement_objs = {}
 house_data = {}
 
+stop = false
+houses.each do |house|
+  location = Location.by_name(org.name, house)
+  if location.nil?
+    stop = true
+    puts "Location #{house} not found."
+  end
+end
+
+exit if stop
+
 i = 1
 csv[4..csv.size].each do |row|
   name = nil
@@ -65,7 +76,7 @@ csv[4..csv.size].each do |row|
       location = Location.by_name(org.name, house)
       if location.nil?
         puts "Location #{house} not found."
-        exit
+        next
       end
       statement = Statement.new
       statement.statement_type = statement_type
@@ -150,9 +161,9 @@ houses.each do |house|
 end
 
 i = 0
-statement_objs.values.each do |o|
-  puts "Saving #{o.location.name}"
-  o.save
+statement_objs.values.each do |obj|
+  puts "Saving #{obj.location.name}"
+  obj.save
   i += 1
 end
 
