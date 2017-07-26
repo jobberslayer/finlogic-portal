@@ -16,6 +16,8 @@ class StatementController < ApplicationController
       org = current_user.information.location.organization.name
     end
     @location = Location.by_name(org, loc)
+    @organization = organization
+    @locations = organization.locations
 
     if @location.nil?
       flash.now[:alert]= 'Not a valid location'
