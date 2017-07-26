@@ -13,3 +13,8 @@ $(document).on 'turbolinks:load', ->
     $('#pdf-balance').show()
   $('#balance-tab').on 'hide.bs.tab', (e) ->
     $('#pdf-balance').hide()
+
+  $('#menu-toggle').click (e) ->
+    e.preventDefault()
+    $('#wrapper').toggleClass("toggled")
+    return
