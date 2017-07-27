@@ -3,8 +3,12 @@ class StatementController < ApplicationController
     org = nil
     loc = nil
     organization = nil
-    if current_user.admin?
-      org = params['organization']
+    if current_user.see_all?
+      if current_user.admin?
+        org = params['organization']
+      else
+        org = current_user.information.location.organization.name
+      end
       loc = params['location']
       organization = Organization.by_name(org)
       if organization.nil?
@@ -54,7 +58,6 @@ class StatementController < ApplicationController
   def income
     build_statement(Statement::TYPE_INCOME)
     respond_to do |format|
-      format.html
       format.pdf do
         render pdf: "#{@location.organization.name}-#{@location.name}-#{@time_period}-IncomeStatement" #, show_as_html: true
       end
@@ -64,7 +67,6 @@ class StatementController < ApplicationController
   def balance
     build_statement(Statement::TYPE_BALANCE)
     respond_to do |format|
-      format.html
       format.pdf do
         render pdf: "#{@location.organization.name}-#{@location.name}-#{@time_period}-BalanceSheet" #, show_as_html: true
       end
@@ -75,8 +77,12 @@ class StatementController < ApplicationController
     org = nil
     loc = nil
     organization = nil
-    if current_user.admin?
-      org = params['organization']
+    if current_user.see_all?
+      if current_user.admin?
+        org = params['organization']
+      else
+        org = current_user.information.location.organization.name
+      end
       loc = params['location']
       organization = Organization.by_name(org)
       if organization.nil?
