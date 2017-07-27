@@ -17,4 +17,9 @@ $(document).on 'turbolinks:load', ->
   $('#menu-toggle').click (e) ->
     e.preventDefault()
     $('#wrapper').toggleClass("toggled")
+    if $('.toggled').is(':visible')
+      $('#menu-toggle').addClass('active')
+    else
+      $('#menu-toggle').removeClass('active')
+      $('#menu-toggle').offsetHeight
     return

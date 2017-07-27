@@ -1,15 +1,15 @@
 div#wrapper
-  div#sidebar-wrapper
-    ul class='sidebar-nav'
-      - @locations.each do |loc|
-        li
-          a href='#{all_statement_path(@organization.name, loc.name)}'
-            span = loc.name 
+  - if current_user.see_all?
+    div#sidebar-wrapper
+      ul class='sidebar-nav'
+        - @locations.each do |loc|
+          li
+            = link_to(loc.name, all_statement_path(@organization.name, loc.name))
 
   navbar.nav.fixed-top.navbar-lower
-    li class="nav-item"
-      a href="#menu-toggle" class="nav-link active" id="menu-toggle"
-        span Chapters
+    - if current_user.see_all?
+      li class='toggle-link'
+        = link_to('Chapters', '#menu-toggle', id: 'menu-toggle', class: '')
     ul id='mytab' class="nav nav-tabs mr-auto" role="tablist"
       li class="nav-item"
         a id='balance-tab' class="nav-link active" href="#balance_statement" role="tab" data-toggle="tab" 
@@ -23,7 +23,6 @@ div#wrapper
       = link_to(icon('print', id: 'pdf-income', class: 'nav-bar-icon-btn'), income_statement_path(@location.organization.name, @location.name, format: 'pdf'), target: '_blank')
 
   div class="tab-content navbar-lower-container"
-    div.location_sidebar
     div role="tabpanel" class="tab-pane fade show active" id="balance_statement"
       = render 'statement', location: @location, time_period: @bs_time_period,  data: @bs_data, bu_data: nil, fc_data: nil, title: 'Balance Sheet'
     div role="tabpanel" class="tab-pane fade" id="income_statement"

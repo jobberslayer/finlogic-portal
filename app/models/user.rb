@@ -1,7 +1,7 @@
 class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
-  devise :database_authenticatable, 
+  devise :database_authenticatable,
          :recoverable, :rememberable, :trackable, :validatable,
           password_length: 8..50
 
@@ -9,5 +9,13 @@ class User < ApplicationRecord
 
   def admin?
     return self.information.role == 'admin'
+  end
+
+  def super?
+    return self.information.role == 'super'
+  end
+
+  def see_all?
+    return self.admin? || self.super?
   end
 end
