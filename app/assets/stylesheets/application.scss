@@ -26,6 +26,11 @@ body {
   margin-top: 80px;
 }
 
+.notification-window {
+  position: relative;
+  margin-top: 125px; 
+}
+
 .btn-primary {
   background: $dark !important;
   border-color: $highlight !important;

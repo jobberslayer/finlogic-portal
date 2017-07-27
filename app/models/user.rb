@@ -11,11 +11,11 @@ class User < ApplicationRecord
     return self.information.role == 'admin'
   end
 
-  def super?
+  def super_user?
     return self.information.role == 'super'
   end
 
   def see_all?
-    return self.admin? || self.super?
+    return self.admin? || self.super_user?
   end
 end
