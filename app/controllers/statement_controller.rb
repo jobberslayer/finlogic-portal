@@ -99,6 +99,7 @@ class StatementController < ApplicationController
       org = organization.name
     end
     @location = Location.by_name(org, loc)
+    @organization = organization
 
     if @location.blank?
       redirect_to(root_path)
