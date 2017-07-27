@@ -7,7 +7,7 @@ class StatementController < ApplicationController
       if current_user.admin?
         org = params['organization']
       else
-        org = current_user.information.location.organization.name
+        org = current_user.organization.name
       end
       loc = params['location']
       organization = Organization.by_name(org)
@@ -16,16 +16,20 @@ class StatementController < ApplicationController
         return
       end
     else
-      loc = current_user.information.location.name
-      org = current_user.information.location.organization.name
-      organization = Organization.by_name(org)
+      loc = current_user.locations.first.name
+      organization = current_user.organization
+      org = organization.name
     end
     @location = Location.by_name(org, loc)
     @organization = organization
     @locations = organization.locations
 
-    if @location.nil?
-      flash.now[:alert]= 'Not a valid location'
+    if @location.blank?
+      redirect_to(root_path)
+      return
+    elsif @organization.blank?
+      redirect_to(root_path)
+      return
     else
       is = Statement.latest_income(@location)
       bs = Statement.latest_balance(@location)
@@ -81,7 +85,7 @@ class StatementController < ApplicationController
       if current_user.admin?
         org = params['organization']
       else
-        org = current_user.information.location.organization.name
+        org = current_user.organization.name
       end
       loc = params['location']
       organization = Organization.by_name(org)
@@ -90,13 +94,18 @@ class StatementController < ApplicationController
         return
       end
     else
-      loc = current_user.information.location.name
-      org = current_user.information.location.organization.name
+      loc = current_user.locations.first.name
+      organization = current_user.organization
+      org = organization.name
     end
     @location = Location.by_name(org, loc)
 
-    if @location.nil?
-      flash.now[:alert]= 'Not a valid location'
+    if @location.blank?
+      redirect_to(root_path)
+      return
+    elsif @organization.blank?
+      redirect_to(root_path)
+      return
     else
       s = nil
       if s_type == Statement::TYPE_INCOME
