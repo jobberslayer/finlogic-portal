@@ -115,8 +115,37 @@ textarea:focus, input:focus, input[type]:focus, .uneditable-input:focus {
   @extend .btn-primary;
   font-size: 18px;
   margin-top: 5px;
+  color: grey;
 }
 
+.toggle-link a:link{
+  @extend .btn;
+  font-size: 18px;
+  margin-top: 5px;
+  text-decoration: none;
+  color: grey;
+}
+
+.toggle-link a:visited{
+  text-decoration: none;
+  color: grey;
+}
+
+.toggle-link a:focus{
+  text-decoration: none;
+  color: grey;
+}
+
+.toggle-link a:hover{
+  background-color: $dark;
+  text-decoration: none;
+  color: grey;
+}
+
+.toggle-link a.active{
+  text-decoration: none;
+  color: white;
+}
 
 .alert {
     @extend .alert-danger;
@@ -171,7 +200,7 @@ textarea:focus, input:focus, input[type]:focus, .uneditable-input:focus {
     height: 100%;
     margin-left: -250px;
     overflow-y: auto;
-    background: #000;
+    background: $chosen;
     -webkit-transition: all 0.5s ease;
     -moz-transition: all 0.5s ease;
     -o-transition: all 0.5s ease;
@@ -212,7 +241,7 @@ textarea:focus, input:focus, input[type]:focus, .uneditable-input:focus {
 .sidebar-nav li a {
     display: block;
     text-decoration: none;
-    color: #999999;
+    color: white;
 }
 
 .sidebar-nav li a:hover {

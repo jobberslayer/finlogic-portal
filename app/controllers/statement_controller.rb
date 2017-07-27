@@ -14,6 +14,7 @@ class StatementController < ApplicationController
     else
       loc = current_user.information.location.name
       org = current_user.information.location.organization.name
+      organization = Organization.by_name(org)
     end
     @location = Location.by_name(org, loc)
     @organization = organization
