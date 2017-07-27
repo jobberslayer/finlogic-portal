@@ -21,5 +21,4 @@ $(document).on 'turbolinks:load', ->
       $('#menu-toggle').addClass('active')
     else
       $('#menu-toggle').removeClass('active')
-      $('#menu-toggle').offsetHeight
     return

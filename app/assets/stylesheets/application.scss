@@ -121,7 +121,7 @@ textarea:focus, input:focus, input[type]:focus, .uneditable-input:focus {
 .toggle-link a:link{
   @extend .btn;
   font-size: 18px;
-  margin-top: 5px;
+  margin-top: 4px;
   text-decoration: none;
   color: grey;
 }
@@ -136,11 +136,10 @@ textarea:focus, input:focus, input[type]:focus, .uneditable-input:focus {
   color: grey;
 }
 
-.toggle-link a:hover{
-  background-color: $dark;
-  text-decoration: none;
-  color: grey;
+.toggle-link {
+  height: 100%;
 }
+
 
 .toggle-link a.active{
   text-decoration: none;
