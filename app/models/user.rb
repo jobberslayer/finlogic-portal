@@ -18,4 +18,16 @@ class User < ApplicationRecord
   def see_all?
     return self.admin? || self.super_user?
   end
+
+  def organization
+    return self.information.location.organization
+  end
+
+  def locations
+    if self.super_user?
+      return self.organization.locations
+    else
+      return [self.information.location]
+    end
+  end
 end

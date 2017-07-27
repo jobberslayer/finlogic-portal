@@ -3,8 +3,8 @@ class HomeController < ApplicationController
     if current_user.admin?
       redirect_to organizations_path
     else
-      org = current_user.information.location.organization.name
-      loc = current_user.information.location.name
+      org = current_user.organization.name
+      loc = current_user.locations.first.name
       redirect_to all_statement_path(org, loc)
     end
   end
