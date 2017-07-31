@@ -1,10 +1,4 @@
 div#wrapper
-  - if current_user.see_all?
-    div#sidebar-wrapper
-      ul class='sidebar-nav'
-        - @locations.each do |loc|
-          li
-            = link_to(loc.name, all_statement_path(@organization.name, loc.name))
 
   navbar.nav.fixed-top.navbar-lower
     - if current_user.see_all?
@@ -22,7 +16,14 @@ div#wrapper
       = link_to(icon('print', id: 'pdf-balance', class: 'nav-bar-icon-btn'), balance_statement_path(@location.organization.name, @location.name, format: 'pdf'), target: '_blank')
       = link_to(icon('print', id: 'pdf-income', class: 'nav-bar-icon-btn'), income_statement_path(@location.organization.name, @location.name, format: 'pdf'), target: '_blank')
 
+
   div class="tab-content navbar-lower-container"
+    - if current_user.see_all?
+      div#sidebar-wrapper
+        ul class='sidebar-nav'
+          - @locations.each do |loc|
+            li
+              = link_to(loc.name, all_statement_path(@organization.name, loc.name))
     div role="tabpanel" class="tab-pane fade show active" id="balance_statement"
       = render 'statement', location: @location, time_period: @bs_time_period,  data: @bs_data, bu_data: nil, fc_data: nil, title: 'Balance Sheet'
     div role="tabpanel" class="tab-pane fade" id="income_statement"

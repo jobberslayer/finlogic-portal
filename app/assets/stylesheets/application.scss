@@ -20,6 +20,8 @@ $highlight: #afd8a0;
 $dark: #7bbe62;
 $chosen: #62984e;
 $nav-font-size: 18px;
+$sidebar-width: 300px;
+$sidebar-negative-width: -300px;
 
 body {
   position: relative;
@@ -193,17 +195,19 @@ textarea:focus, input:focus, input[type]:focus, .uneditable-input:focus {
 }
 
 #wrapper.toggled {
-    padding-left: 250px;
+    padding-left: $sidebar-width;
 }
 
 #sidebar-wrapper {
     z-index: 1000;
     position: fixed;
-    left: 250px;
+    left: $sidebar-width;
     width: 0;
-    height: 100%;
-    margin-left: -250px;
+    height: 85%;
+    margin-left: $sidebar-negative-width;
+    margin-top: -8px;
     overflow-y: auto;
+    overflow-x: hidden;
     background: $chosen;
     -webkit-transition: all 0.5s ease;
     -moz-transition: all 0.5s ease;
@@ -212,7 +216,7 @@ textarea:focus, input:focus, input[type]:focus, .uneditable-input:focus {
 }
 
 #wrapper.toggled #sidebar-wrapper {
-    width: 250px;
+    width: $sidebar-width;
 }
 
 #page-content-wrapper {
@@ -223,7 +227,7 @@ textarea:focus, input:focus, input[type]:focus, .uneditable-input:focus {
 
 #wrapper.toggled #page-content-wrapper {
     position: absolute;
-    margin-right: -250px;
+    margin-right: sidebar-negative-width;
 }
 
 /* Sidebar Styles */
@@ -231,7 +235,7 @@ textarea:focus, input:focus, input[type]:focus, .uneditable-input:focus {
 .sidebar-nav {
     position: absolute;
     top: 0;
-    width: 250px;
+    width: $sidebar-width;
     margin: 0;
     padding: 0;
     list-style: none;
@@ -280,7 +284,7 @@ textarea:focus, input:focus, input[type]:focus, .uneditable-input:focus {
     }
 
     #wrapper.toggled {
-        padding-left: 250px;
+        padding-left: $sidebar-width;
     }
 
     #sidebar-wrapper {
@@ -288,7 +292,7 @@ textarea:focus, input:focus, input[type]:focus, .uneditable-input:focus {
     }
 
     #wrapper.toggled #sidebar-wrapper {
-        width: 250px;
+        width: $sidebar-width;
     }
 
     #page-content-wrapper {
