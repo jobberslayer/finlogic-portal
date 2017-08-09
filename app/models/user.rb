@@ -6,6 +6,8 @@ class User < ApplicationRecord
           password_length: 8..50
 
   has_one :information
+  has_many :users_locations, dependent: :destroy
+  has_many :their_locations, through: :users_locations, source: :location
 
   def admin?
     return self.information.role == 'admin'
@@ -20,14 +22,24 @@ class User < ApplicationRecord
   end
 
   def organization
-    return self.information.location.organization
+    return self.their_locations.first.organization
   end
 
   def locations
     if self.super_user?
       return self.organization.locations
     else
-      return [self.information.location]
+      return self.their_locations
+    end
+  end
+
+  def icon
+    if self.admin?
+      return nil
+    elsif self.super_user?
+      return self.locations.first.organization.icon
+    else
+      return self.locations.first.organization.icon
     end
   end
 end
