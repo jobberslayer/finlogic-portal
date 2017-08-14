@@ -8,11 +8,16 @@ OptionParser.new do |opt|
   opt.on('--last LNAME') { |x| o[:lname] = x }
   opt.on('--email EMAIL') { |x| o[:email] = x }
   opt.on('--role ROLE') { |x| o[:role] = x }
+  opt.on('--password PASSWORD') { |x| o[:password] = x }
   opt.on('--send_email') {  o[:send_email] = true }
   opt.on('--myhelp') { puts opt; exit }
 end.parse!
 
-password = 'cumming30040'
+if o[:password].nil?
+  puts 'Need to provide temp password.'
+  exit
+end
+password = o[:password]
 
 locations = []
 org = Organization.by_name(o[:org_name])
