@@ -1,5 +1,6 @@
 class Organization < ApplicationRecord
   has_many :locations
+  has_many :users
 
   def name=(val)
     write_attribute(:name, val.upcase)

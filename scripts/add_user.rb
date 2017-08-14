@@ -12,29 +12,19 @@ OptionParser.new do |opt|
   opt.on('--myhelp') { puts opt; exit }
 end.parse!
 
-password = '11223344556677'
+password = 'cumming30040'
 
 locations = []
+org = Organization.by_name(o[:org_name])
 o[:loc_names].each do |loc_name|
   l = Location.by_name(o[:org_name], loc_name)
 
-  unless l
+  unless l && o
     puts "Could not find location #{loc_name}"
     exit
   end
   locations.push l
 end
-
-i = Information.new({
-  role: o[:role],
-  fname: o[:fname],
-  lname: o[:lname],
-})
-# unless i
-#   puts i.errors
-#   exit
-# end
-# l.informations.push i
 
 if User.find_by(email: o[:email])
   p "Email already exists"
@@ -42,7 +32,16 @@ if User.find_by(email: o[:email])
 end
 
 u = User.new({
-  :email => o[:email], :password => password, :password_confirmation => password })
+  :email => o[:email],
+  :password => password,
+  :password_confirmation => password,
+  role: o[:role],
+  fname: o[:fname],
+  lname: o[:lname],
+})
+
+u.organization = org
+
 unless u
   puts u.errors
   exit
@@ -50,9 +49,6 @@ end
 
 u.their_locations.concat locations
 
-u.information = i
-
-i.save
 u.save
 
 if o[:send_email]
