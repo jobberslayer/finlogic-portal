@@ -14,7 +14,7 @@ center
         - unless bu_data.nil?
           th.text-right Budget  
         - unless fc_data.nil?
-          th.text-right Forecast  
+          th.text-right Prior Year  
         - data.each do |line| 
           - next if line[:amount].blank?
           - parts = line[:path].split('|', -1)

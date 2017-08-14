@@ -5,24 +5,24 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :trackable, :validatable,
           password_length: 8..50
 
-  has_one :information
+  belongs_to :organization
   has_many :users_locations, dependent: :destroy
   has_many :their_locations, through: :users_locations, source: :location
 
   def admin?
-    return self.information.role == 'admin'
+    return self.role == 'admin'
   end
 
   def super_user?
-    return self.information.role == 'super'
+    return self.role == 'super'
   end
 
   def see_all?
     return self.admin? || self.super_user?
   end
 
-  def organization
-    return self.their_locations.first.organization
+  def name
+    return "#{self.fname} #{self.lname}"
   end
 
   def locations
@@ -37,9 +37,9 @@ class User < ApplicationRecord
     if self.admin?
       return nil
     elsif self.super_user?
-      return self.locations.first.organization.icon
+      return self.organization.icon
     else
-      return self.locations.first.organization.icon
+      return self.organization.icon
     end
   end
 end

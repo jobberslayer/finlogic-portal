@@ -5,6 +5,7 @@ o = {}
 OptionParser.new do |opt|
   opt.on('--file FILE') { |x| o[:file] = x}
   opt.on('--email') {o[:send_email] = true}
+  opt.on('--password PASSWORD') {|x| o[:password] = x}
   opt.on('--myhelp') { puts opt; exit }
 end.parse!
 
@@ -20,6 +21,14 @@ if org.nil?
   puts "Can't find organization!"
   exit
 end
+
+if o[:password].nil?
+  puts 'Need to provide temp password'
+  exit
+end
+password = o[:password]
+
+puts "using password...#{password}"
 
 puts "Preprocessing check..."
 
@@ -44,10 +53,21 @@ CSV.foreach(data_file, {headers: true}) do |row|
   end
 
   u = User.find_by(email: email)
-  unless u.nil?
+  if u.nil?
+    role = house.upcase == 'HQ' ? 'super' : 'user'
+    u = User.new({
+      email: email,
+      password: password,
+      password_confirmation: password,
+      role: role,
+      fname: fname,
+      lname: lname,
+    })
+    org.users.push u
+    u.save
+    org.save
+  else
     puts "Account already exists, #{u.email}"
-    problem = true
-    next
   end
 
   if house.blank?
@@ -64,6 +84,7 @@ CSV.foreach(data_file, {headers: true}) do |row|
   end
 
   hash = {
+    user:  u,
     fname: fname,
     lname: lname,
     email: email,
@@ -82,8 +103,17 @@ end
 
 ready_rows.each do |info|
   if info[:house] == 'HQ'
-    # create aoii super user
+    info[:user].locations.push org.locations.first
+      info[:user].save
   else
-    # create a normal aoii user
+    location = Location.by_name('AOII', info[:house])
+    if info[:user].locations.include? location
+      puts "#{info[:user].name} already assigned #{location.name}"
+    else
+      info[:user].locations.push location
+      unless info[:user].save
+        puts "problem saving...#{info[:user].errors.messages}"
+      end
+    end
   end
 end

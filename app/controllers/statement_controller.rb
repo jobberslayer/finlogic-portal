@@ -4,30 +4,31 @@ class StatementController < ApplicationController
     loc = nil
     organization = nil
     @locations = nil
-    if current_user.see_all? || current_user.locations.count > 1
-      if current_user.admin?
-        org = params['organization']
-      else
-        org = current_user.organization.name
-      end
-      loc = params['location']
-      organization = Organization.by_name(org)
-      if organization.nil?
-        flash.now[:alert] = "Not a valid organization [#{org}]"
-        return
-      end
-      if current_user.admin?
-        @locations = organization.locations
-      else
-        @locations = current_user.locations
-      end
+
+    if current_user.admin?
+      org = params['organization']
     else
-      loc = current_user.locations.first.name
-      organization = current_user.organization
-      org = organization.name
+      org = current_user.organization.name
     end
+    loc = params['location']
+    organization = Organization.by_name(org)
+    if organization.nil?
+      flash.now[:alert] = "Not a valid organization [#{org}]"
+      return
+    end
+    if current_user.admin?
+      @locations = organization.locations
+    else
+      @locations = current_user.locations
+    end
+
     @location = Location.by_name(org, loc)
     @organization = organization
+
+    unless current_user.see_all? || current_user.locations.include?(@location)
+      redirect_to root_path
+      return
+    end
 
     if @location.blank?
       redirect_to(root_path)
