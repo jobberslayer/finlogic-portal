@@ -1,5 +1,5 @@
 class StatementController < ApplicationController
-  def all
+  def index
     org = nil
     loc = nil
     organization = nil
@@ -66,6 +66,7 @@ class StatementController < ApplicationController
   end
 
   def income
+    request.format = :pdf
     build_statement(Statement::TYPE_INCOME)
     respond_to do |format|
       format.pdf do
@@ -75,6 +76,7 @@ class StatementController < ApplicationController
   end
 
   def balance
+    request.format = :pdf
     build_statement(Statement::TYPE_BALANCE)
     respond_to do |format|
       format.pdf do
