@@ -156,7 +156,15 @@ houses.each do |house|
 end
 
 houses.each do |house|
-  #pp house_data[house].to_json
+  pp house_data[house]
+  if o[:forecast]
+    house_data[house].each do |h|
+      if h[:key] == 'Stoplight Indicator'
+        puts h[:amount]
+        exit
+      end
+    end
+  end
   statement_objs[house].statement_data = house_data[house].to_json
 end
 
