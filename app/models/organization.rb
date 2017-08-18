@@ -1,4 +1,5 @@
 class Organization < ApplicationRecord
+  has_many :statements
   has_many :locations
   has_many :users
 

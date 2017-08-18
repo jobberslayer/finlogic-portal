@@ -140,6 +140,10 @@ def rebuild_path(path, new_part, last_col, col)
   return path
 end
 
+def scrub_amount(amt)
+  return amt.gsub('$','').gsub('(','-').gsub(')','').strip
+end
+
 path = ''
 last_col = 0
 houses.each do |house|
@@ -155,18 +159,50 @@ houses.each do |house|
   house_data[house] = path_struct
 end
 
+stoplight = []
+
 houses.each do |house|
-  pp house_data[house]
+  #pp house_data[house]
+  #exit
   if o[:forecast]
+    sld = {}
+    sld[:house] = house
     house_data[house].each do |h|
-      if h[:key] == 'Stoplight Indicator'
-        puts h[:amount]
-        exit
+      # stop light data
+      next if h[:key].nil?
+      if h[:key].strip == 'Stoplight Indicator'
+        sld[:stoplight] = h[:amount].gsub('%', '').strip
+      elsif h[:key].strip == 'Forecasted Net Income'
+        sld[:forecasted_net_income] = scrub_amount(h[:amount])
+      elsif h[:key].strip == 'Net Income'
+        sld[:net_income] = scrub_amount(h[:amount])
+      elsif h[:key].strip == 'Forecasted Cash'
+        sld[:forecasted_cash] = scrub_amount(h[:amount])
+      elsif h[:key].strip == 'Cash'
+        sld[:cash] = scrub_amount(h[:amount])
       end
     end
+    stoplight.push sld
   end
   statement_objs[house].statement_data = house_data[house].to_json
 end
+
+# Report covers all houses
+# Only admins & super users can via
+# Owned by an organization
+if o[:forecast]
+  statement = Statement.new
+  statement.statement_type = Statement::TYPE_STOPLIGHT
+  statement.title1 = csv[0][0]
+  statement.title2 = 'Stoplight Report'
+  statement.time_period = csv[2][0]
+  statement.statement_version = version
+  statement.statement_data = stoplight.to_json
+  org.statements.push statement
+  statement.save
+  org.save
+end
+
 
 i = 0
 statement_objs.values.each do |obj|

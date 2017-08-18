@@ -1,10 +1,12 @@
 class Statement < ApplicationRecord
+  belongs_to :organization
   belongs_to :location
 
   TYPE_INCOME = 'income'
   TYPE_BALANCE = 'balance'
   TYPE_BUDGET = 'budget'
   TYPE_FORECAST = 'forecast'
+  TYPE_STOPLIGHT = 'stoplight'
 
   def self.latest_income(location)
     return Statement.where(location_id: location.id, statement_type: TYPE_INCOME).order('created_at').last
