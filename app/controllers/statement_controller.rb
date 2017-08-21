@@ -41,6 +41,7 @@ class StatementController < ApplicationController
       bs = Statement.latest_balance(@location)
       bu = Statement.latest_budget(@location)
       fc = Statement.latest_forecast(@location)
+      sl = Statement.latest_stoplight(organization)
       if bs.nil?
         flash.now[:alert] = "No balance statement for #{org.titleize} - #{loc.titleize}"
       else
@@ -61,6 +62,11 @@ class StatementController < ApplicationController
 
       unless fc.nil?
         @fc_data = fc.send("to_#{fc.statement_version}", true, false)
+      end
+
+      unless sl.nil? || !current_user.see_all?
+        @sl_time_period = sl.time_period
+        @sl_data = sl.to_stoplight
       end
     end
   end

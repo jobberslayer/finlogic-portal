@@ -3,4 +3,4 @@
 - else
   = image_tag "/images/logos/#{location.organization.logo}"
 .title-break
-h3 #{location.name}
+h3 #{alt_text.nil? ? location.name : alt_text}

@@ -1,0 +1,32 @@
+center
+  = statement_org_name(@location, 'All Chapters')
+  h2 Stop Light 
+  p #{time_period}
+
+- unless data.nil?
+  div class='container col-sm-12'
+    div class='container'
+      table class='table table-striped' width='50%'
+        tr
+          th 
+          th Chapter
+          th Cash
+          th Cash Forcast
+          th Net Income
+          th Net Income Forecast
+        - data.each do |h|
+          tr
+            td
+              = stoplight_to_icon h['stoplight'].to_i
+            td
+              = h['house']
+            td 
+              = number_to_currency h['cash'].to_f, precision: 2
+            td
+              = number_to_currency h['forecasted_cash'].to_f, precision: 2
+            td
+              = number_to_currency h['net_income'].to_f, precision: 2
+            td
+              = number_to_currency h['forecasted_net_income'].to_f, precision: 2
+
+

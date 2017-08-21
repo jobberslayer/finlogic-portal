@@ -11,6 +11,10 @@ div#wrapper
       li class="nav-item"
         a id='income-tab' class="nav-link" href="#income_statement" role="tab" data-toggle="tab"
           span Income Statement
+      - if current_user.see_all?
+        li class="nav-item"
+          a id='spotlight-tab' class="nav-link" href="#stoplight_statement" role="tab" data-toggle="tab"
+            span Stop Light
     li class="nav-item" style="margin-right:20px;"
       div#
       = link_to(icon('print', id: 'pdf-balance', class: 'nav-bar-icon-btn'), balance_statement_path(@location.organization.name, @location.name, format: 'pdf'), target: '_blank')
@@ -28,3 +32,6 @@ div#wrapper
       = render 'statement', location: @location, time_period: @bs_time_period,  data: @bs_data, bu_data: nil, fc_data: nil, title: 'Balance Sheet'
     div role="tabpanel" class="tab-pane fade" id="income_statement"
       = render 'statement', location: @location, time_period: @is_time_period,  data: @is_data, bu_data: @bu_data, fc_data: @fc_data, title: 'Income Statement'
+    - if current_user.see_all?
+      div role="tabpanel" class="tab-pane fade" id="stoplight_statement"
+        = render 'stop_light', time_period: @sl_time_period, data: @sl_data

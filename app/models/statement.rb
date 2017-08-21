@@ -24,6 +24,10 @@ class Statement < ApplicationRecord
     return Statement.where(location_id: location.id, statement_type: TYPE_FORECAST).order('created_at').last
   end
 
+  def self.latest_stoplight(organization)
+    return Statement.where(organization_id: organization.id, statement_type: TYPE_STOPLIGHT).order('created_at').last
+  end
+
   def self.find_by_path(array, path, key)
     a = array.select {|x| x[:path] == path && x[:key] == key}
     return a.first
@@ -32,6 +36,10 @@ class Statement < ApplicationRecord
   def self.find_by_key(array, key)
     a = array.select {|x| x[:key] == key}
     return a.first
+  end
+
+  def to_stoplight
+    return JSON.parse(self.statement_data)
   end
 
   def to_aoii01(skip_zero_amts=false, condense=false)
