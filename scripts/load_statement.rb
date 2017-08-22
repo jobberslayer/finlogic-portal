@@ -34,6 +34,7 @@ elsif o[:forecast]
 end
 
 csv = CSV.read(o[:file])
+time_period = csv[2][0]
 
 org = Organization.by_name(o[:org_name])
 if org.nil?
@@ -82,6 +83,7 @@ csv[4..csv.size].each do |row|
       statement.statement_type = statement_type
       statement.title1 = csv[0][0]
       statement.title2 = csv[1][0]
+      time_period = csv[2][0] if time_period.nil?
       statement.time_period = csv[2][0]
       statement.statement_version = version
       location.statements.push statement
@@ -170,9 +172,7 @@ houses.each do |house|
     house_data[house].each do |h|
       # stop light data
       next if h[:key].nil?
-      if h[:key].strip == 'Stoplight Indicator'
-        sld[:stoplight] = h[:amount].gsub('%', '').strip
-      elsif h[:key].strip == 'Forecasted Net Income'
+      if h[:key].strip == 'Forecasted Net Income'
         sld[:forecasted_net_income] = scrub_amount(h[:amount])
       elsif h[:key].strip == 'Net Income'
         sld[:net_income] = scrub_amount(h[:amount])
@@ -180,8 +180,11 @@ houses.each do |house|
         sld[:forecasted_cash] = scrub_amount(h[:amount])
       elsif h[:key].strip == 'Cash'
         sld[:cash] = scrub_amount(h[:amount])
+      elsif h[:key].strip == 'Total Income'
+        sld[:total_income] = scrub_amount(h[:amount])
       end
     end
+    sld[:stop_light] = sld[:forecasted_cash].to_f <= 0 || sld[:forecasted_cash].nil? ? 1.0 : (sld[:total_income].to_f / sld[:forecasted_cash].to_f) * 100.0
     stoplight.push sld
   end
   statement_objs[house].statement_data = house_data[house].to_json
@@ -195,7 +198,7 @@ if o[:forecast]
   statement.statement_type = Statement::TYPE_STOPLIGHT
   statement.title1 = csv[0][0]
   statement.title2 = 'Stoplight Report'
-  statement.time_period = csv[2][0]
+  statement.time_period = time_period
   statement.statement_version = version
   statement.statement_data = stoplight.to_json
   org.statements.push statement

@@ -17,9 +17,9 @@ module StatementHelper
   end
 
   def stoplight_to_icon(amount)
-    if amount >= 200
+    if amount >= 50
       return icon "thumbs-up", style: 'color:green'
-    elsif amount > 75 && amount < 200
+    elsif amount > 25 && amount < 50
       return icon "warning", style: 'color:#CCCC00'
     else
       return icon "thumbs-down", style: 'color:red'

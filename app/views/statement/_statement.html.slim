@@ -8,26 +8,28 @@ center
     div class='container'
       table class='table table-striped' width='50%'
         - @printed = {}
-        - unless bu_data.nil? && fc_data.nil?
-          td
-          th.text-right To Date
-        - unless bu_data.nil?
-          th.text-right Budget  
-        - unless fc_data.nil?
-          th.text-right Prior Year  
-        - data.each do |line| 
-          - next if line[:amount].blank?
-          - parts = line[:path].split('|', -1)
-          - tmp_path = []
-          - parts.each do |p|
-            - tmp_path.push p
-            - unless @printed.include?(tmp_path.join("|"))
-              - next if p.empty?
-              tr
-                td 
-                  = statement_indent(tmp_path.join("|").path_indent) 
-                  = icon('caret-right', '&nbsp;'.html_safe)
-                  = p
-                td 
-              - @printed[tmp_path.join("|")] = true
-          = statement_line(line, bu_data, fc_data)
+        thead
+          - unless bu_data.nil? && fc_data.nil?
+            td
+            th.text-right To Date
+          - unless bu_data.nil?
+            th.text-right Budget  
+          - unless fc_data.nil?
+            th.text-right Prior Year  
+        tbody
+          - data.each do |line| 
+            - next if line[:amount].blank?
+            - parts = line[:path].split('|', -1)
+            - tmp_path = []
+            - parts.each do |p|
+              - tmp_path.push p
+              - unless @printed.include?(tmp_path.join("|"))
+                - next if p.empty?
+                tr
+                  td 
+                    = statement_indent(tmp_path.join("|").path_indent) 
+                    = icon('caret-right', '&nbsp;'.html_safe)
+                    = p
+                  td 
+                - @printed[tmp_path.join("|")] = true
+            = statement_line(line, bu_data, fc_data)
