@@ -23,5 +23,7 @@ Time:
  ✔ 2017-08-03: 8 <starting development of normal user with multiple chapters> /2017-08-14 10:35AM/
  ✔ 2017-08-07: 4 <finishing coding and testing> /2017-08-14 10:35AM/
  ✔ 2017-08-14: 4 <dev bulk user creation script with new ability to have multiple houses per user>    /2017-08-14 10:35AM/
- ☐ 2017-08-18: 4 <loaded new data for stoplight report>
- ☐ 2017-08-21: 5 <implemeted front end for stoplight report. percentage numbers not making sense though.>
+ ✔ 2017-08-18: 4 <loaded new data for stoplight report> /2017-08-31 12:45PM/
+ ✔ 2017-08-21: 5 <implemeted front end for stoplight report. percentage numbers not making sense though.>/ /2017-08-31
+ 12:45PM/
+ ✔ 2017-08-22: 5 <doing stop light calculation at load time.> /2017-08-31 12:45PM/
