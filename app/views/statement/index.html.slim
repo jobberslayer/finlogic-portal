@@ -25,7 +25,7 @@ div#wrapper
     - if current_user.see_all? || current_user.locations.count > 1
       div#sidebar-wrapper
         ul class='sidebar-nav'
-          - @locations.each do |loc|
+          - @locations.sort{ |a,b| a.name <=> b.name}.each do |loc|
             li
               = link_to(loc.name, all_statement_path(@organization.name, loc.name))
     div role="tabpanel" class="tab-pane fade show active" id="balance_statement"

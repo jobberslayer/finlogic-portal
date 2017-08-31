@@ -16,7 +16,7 @@ center
             th Net Income
             th Net Income Forecast
         tbody
-          - data.each do |h|
+          - data.sort_by{ |a,b| 'house' }.each do |h|
             tr
               td
                 = stoplight_to_icon h['stop_light'].to_f
