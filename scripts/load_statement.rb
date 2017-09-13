@@ -174,11 +174,11 @@ houses.each do |house|
       next if h[:key].nil?
       if h[:key].strip == 'Forecasted Net Income'
         sld[:forecasted_net_income] = scrub_amount(h[:amount])
-      elsif h[:key].strip == 'Net Income'
+      elsif h[:key].strip == 'Current Net Income'
         sld[:net_income] = scrub_amount(h[:amount])
       elsif h[:key].strip == 'Forecasted Cash'
         sld[:forecasted_cash] = scrub_amount(h[:amount])
-      elsif h[:key].strip == 'Cash'
+      elsif h[:key].strip == 'Current Cash'
         sld[:cash] = scrub_amount(h[:amount])
       elsif h[:key].strip == 'Total Income'
         sld[:total_income] = scrub_amount(h[:amount])
